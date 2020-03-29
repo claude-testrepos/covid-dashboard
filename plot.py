@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 import data
 
 DEFAULT = ["Italy", "Spain", "US", "Canada", "Korea, South"]
+POPULATION = {  # 2019 estimates
+    "Italy": 60.4e6, "Spain": 47.1e6, "US": 328.2e6, "Canada": 37.6e6, "Korea, South": 51.7e6,
+    "Germany": 83.0e6, "France": 67.0e6, "United Kingdom": 66.6e6, "China": 1393e6, "Iran": 82.9e6,
+}
 
 
 def since_n_cases(df, n=100):
@@ -24,10 +28,16 @@ def main():
     p.add_argument("--log", action="store_true", help="log scale")
     p.add_argument("--daily", action="store_true", help="new cases per day (7-day avg)")
     p.add_argument("--save", help="write png instead of showing")
+    p.add_argument("--per-million", action="store_true", help="normalize by population")
     args = p.parse_args()
 
     df = data.deaths() if args.deaths else data.confirmed()
     df = df[args.countries]
+    if args.per_million:
+        missing = [c for c in args.countries if c not in POPULATION]
+        if missing:
+            p.error(f"no population data for {missing}")
+        df = df / [POPULATION[c] for c in args.countries] * 1e6
     if args.daily:
         df = df.diff().rolling(7).mean()
         df.plot(figsize=(10, 6))
