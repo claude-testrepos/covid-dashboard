@@ -1,6 +1,6 @@
 # COVID-19 Tracker
 
-Quick script to compare how fast COVID-19 is spreading in different countries, using the Johns Hopkins CSSE dataest.
+Quick script to compare how fast COVID-19 is spreading in different countries, using the Johns Hopkins CSSE dataset.
 
 ## Usage
 
