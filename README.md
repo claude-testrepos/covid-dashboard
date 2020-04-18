@@ -14,3 +14,8 @@ python plot.py --daily --per-million Canada US
 ## Data
 
 Johns Hopkins University CSSE, https://github.com/CSSEGISandData/COVID-19
+
+## TODO
+
+- [ ] write proper docs
+- [ ] clean up the code
